@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "kind": "mode-request",
+  "mode": "level-3.v1",
+  "activation": {
+    "mode": "level-3.v1",
+    "requested": true,
+    "source_revision": "synthetic-level-3-1"
+  },
+  "app": {
+    "name": "ChatGPT Web Connector",
+    "slug": "chatgpt-web-connector",
+    "discovered": true,
+    "callable": true,
+    "authority": "bound-workspace",
+    "research_app_name": "ChatGPT Web Connector — Research"
+  },
+  "project_request": {
+    "schema": "codex-v3.chatgpt-project-request.v2",
+    "mode": "implementation",
+    "web_search": "required-before-first-message",
+    "connector_tools": ["read", "view_image", "apply_patch", "exec_command", "write_stdin"],
+    "flow": "docs/handoffs/chatgpt-pro-project-flow.md",
+    "repository_id": "synthetic/prompt-generator",
+    "repository_root": "/synthetic/prompt-generator",
+    "branch": "task/level-3-synthetic",
+    "initial_head": "synthetic-level-3-initial",
+    "base": "main",
+    "delivery": "local-only",
+    "publication_transport": "none",
+    "workspace_handle": "ws-01.AAAAAAAAAAAAAAAAAAAAAA",
+    "goal": "Invalid stale binding"
+  },
+  "recovery": {
+    "persistence": "bounded",
+    "checkpoint": "synthetic-level-3-recovery-checkpoint",
+    "effect": "known-no-effect",
+    "status": "known-no-effect",
+    "attempt": "initial"
+  },
+  "resume": {
+    "kind": "resume",
+    "project_request_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "previous_workspace_handle_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "workspace_handle": "ws-01.AAAAAAAAAAAAAAAAAAAAAA",
+    "fresh": false
+  },
+  "dispatchable": false
+}

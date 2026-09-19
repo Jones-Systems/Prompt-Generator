@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "kind": "mode-request",
+  "mode": "level-2.v1",
+  "activation": {
+    "mode": "level-2.v1",
+    "requested": true,
+    "source_revision": "synthetic-level-2-1"
+  },
+  "goal": "Exercise GitHub plus Scratch authoring with synthetic nondispatchable bindings",
+  "repository": {
+    "repository_id": "synthetic/prompt-generator",
+    "repository_root": "/synthetic/prompt-generator",
+    "branch": "task/level-2-synthetic",
+    "head": "synthetic-level-2-head",
+    "initial_head": "synthetic-level-2-initial",
+    "base": "main",
+    "delivery": "task-branch",
+    "nondispatchable": true
+  },
+  "app": {
+    "name": "GitHub",
+    "discovered": true,
+    "authority": "repository-scoped",
+    "actions": ["read", "write", "search"]
+  },
+  "instructions": {
+    "source": "LEVEL-TWO.md",
+    "revision": "synthetic-level-2-guidance-1",
+    "complete": true,
+    "intake": "complete"
+  },
+  "scratch": {
+    "available": true,
+    "root": "/synthetic/scratch/level-2",
+    "checkpoint": "synthetic-level-2-checkpoint",
+    "retention": "task-scoped"
+  },
+  "recovery": {
+    "persistence": "durable",
+    "checkpoint": "synthetic-level-2-recovery-checkpoint",
+    "effect": "known-no-effect",
+    "status": "known-no-effect",
+    "attempt": "initial"
+  },
+  "dispatchable": false
+}

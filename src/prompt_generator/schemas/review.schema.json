@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Jones-Systems/Prompt-Generator/schemas/review.schema.json",
+  "title": "Prompt Generator review ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "entries"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "kind": {"const": "review-ledger"},
+    "entries": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "kind", "prompt_id", "revision", "source_revision", "payload_digest", "reviewer", "outcome"],
+      "properties": {
+        "schema_version": {"type": "integer", "const": 1},
+        "kind": {"const": "review-evidence"},
+        "prompt_id": {"type": "string", "pattern": "^prj_[0-9a-f]{32}:[A-Za-z][A-Za-z0-9]*(?:[-_.][A-Za-z0-9]+)*$"},
+        "revision": {"type": "integer", "minimum": 1},
+        "source_revision": {"type": "string", "minLength": 1},
+        "payload_digest": {"$ref": "#/$defs/digest"},
+        "source_digest": {"$ref": "#/$defs/digest"},
+        "reviewer": {"type": "string", "minLength": 1},
+        "outcome": {"enum": ["pass", "fail", "accepted", "rejected", "pending"]},
+        "evidence_id": {"type": "string", "minLength": 1},
+        "notes": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "kind": "mode-request",
+  "mode": "level-1.v1",
+  "activation": {
+    "mode": "level-1.v1",
+    "requested": true,
+    "source_revision": "synthetic-level-1-1",
+    "reason": "Explicit local-only reduced fallback for a capability-limited test",
+    "explicit_fallback": true
+  },
+  "goal": "Exercise a reduced local prompt authoring flow with synthetic data",
+  "repository": {
+    "repository_id": "synthetic/prompt-generator",
+    "repository_root": "/synthetic/prompt-generator",
+    "branch": "task/level-1-synthetic",
+    "head": "synthetic-level-1-head",
+    "base": "main",
+    "delivery": "local-only",
+    "nondispatchable": true
+  },
+  "fallback": "reduced-local-only",
+  "dispatchable": false
+}
