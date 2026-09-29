@@ -1,6 +1,6 @@
 # Prompt Generator
 
-Prompt Generator is a Python 3.11+ library and command-line tool for building
+Prompt Generator is a Python 3.13 library and command-line tool for building
 deterministic, public-safe prompt catalogs. Canonical input is strict versioned
 JSON. Generated Markdown, manifests, indexes, and migration reports are inert
 data; nothing in a prompt is evaluated as Python, a shell command, a template,

@@ -21,7 +21,7 @@ Authority effect: none
 <!-- codex-section:begin id="spec.prompt-generator-mvp#ctx.project-summary.001" -->
 ## Project Summary
 
-Build a portable Python 3.11+ CLI/library whose canonical source is strict versioned JSON and whose generated Markdown, indexes, manifests, carriers, review records, dispatch checks, and migration reports are deterministic. The public repository owns opaque private-reference request/result/error shapes but never values or resolver access. Primary modes are distinct `level-2.v1` and `level-3.v1`; `level-1.v1` is an explicit reduced fallback. The finish line is a verified, independently reviewed, privacy-cleared draft pull request. Hosted service, live dispatch, live private resolution, release, deployment, and merge are excluded.
+Build a portable Python 3.13 CLI/library whose canonical source is strict versioned JSON and whose generated Markdown, indexes, manifests, carriers, review records, dispatch checks, and migration reports are deterministic. The public repository owns opaque private-reference request/result/error shapes but never values or resolver access. Primary modes are distinct `level-2.v1` and `level-3.v1`; `level-1.v1` is an explicit reduced fallback. The finish line is a verified, independently reviewed, privacy-cleared draft pull request. Hosted service, live dispatch, live private resolution, release, deployment, and merge are excluded.
 <!-- codex-section:end id="spec.prompt-generator-mvp#ctx.project-summary.001" -->
 
 <!-- codex-section:begin id="spec.prompt-generator-mvp#req.mvp.001" -->
@@ -49,7 +49,7 @@ The installed CLI/library passes unit and end-to-end tests for identity/schema r
 <!-- codex-section:begin id="spec.prompt-generator-mvp#ctx.research-decision-basis.001" -->
 ## Research And Decision Basis
 
-Current Codex-V3 authority is pinned at `4911fbff0c87166d14870658dd938ef163b40085`, including exact Level 2 and Level 3 source blobs recorded in `worknote.prompt-generator-mvp`. Company-campaign evidence is pinned at `39e6f617beee7be7d533d3ff7e85a13cbd2a0e6d`; it proves qualified hash keys, marker/fence rules, unmarked carriers, and corrected alias/EOF/fictional-coordinator cases but supplies no license grant for import. The 139-item app campaign proves sibling-first coordination and exact stack invalidation but is not public-safe for raw import. Primary Python, JSON Schema, packaging, CommonMark, and filesystem documentation support Python 3.11+, Draft 2020-12, stdlib CLI/serialization, and same-filesystem atomic replacement. The architecture screen is complete for the named public CLI/library, generated snapshot reader, public/private contract consumer, CI, and migration universe at these revisions; live authentication/storage/deployment consumers remain intentionally excluded.
+Current Codex-V3 authority is pinned at `4911fbff0c87166d14870658dd938ef163b40085`, including exact Level 2 and Level 3 source blobs recorded in `worknote.prompt-generator-mvp`. Company-campaign evidence is pinned at `39e6f617beee7be7d533d3ff7e85a13cbd2a0e6d`; it proves qualified hash keys, marker/fence rules, unmarked carriers, and corrected alias/EOF/fictional-coordinator cases but supplies no license grant for import. The 139-item app campaign proves sibling-first coordination and exact stack invalidation but is not public-safe for raw import. Primary Python, JSON Schema, packaging, CommonMark, and filesystem documentation support Python 3.13, Draft 2020-12, stdlib CLI/serialization, and same-filesystem atomic replacement. The architecture screen is complete for the named public CLI/library, generated snapshot reader, public/private contract consumer, CI, and migration universe at these revisions; live authentication/storage/deployment consumers remain intentionally excluded.
 <!-- codex-section:end id="spec.prompt-generator-mvp#ctx.research-decision-basis.001" -->
 
 <!-- codex-section:begin id="spec.prompt-generator-mvp#ctx.change-surface.001" -->
@@ -83,7 +83,7 @@ Canonical JSON v1 rejects unknown fields and unsafe numbers. Project and prompt 
     "unknown": "the candidate revision, environment, or generated snapshot is not exact"
   },
   "environment": [
-    "Python 3.11 or newer with synthetic fixtures only"
+    "Python 3.13 with synthetic fixtures only"
   ],
   "obligation_owner_task": "spec.prompt-generator-mvp#task.integration.001",
   "evidence_executor_task": "spec.prompt-generator-mvp#task.integration.001",

@@ -7,8 +7,9 @@ name = "jones-prompt-generator"
 version = "0.1.0"
 description = "Deterministic, public-safe prompt catalog tooling"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = "==3.13.*"
 authors = [{name = "Jones Systems"}]
+classifiers = ["Programming Language :: Python :: 3.13"]
 dependencies = []
 
 [project.scripts]
