@@ -17,8 +17,9 @@ jobs:
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d
         with:
           version: "0.12.5"
+          python-version: "3.13"
       - name: Run serial unit and end-to-end checks
-        run: uv run python -m unittest discover -s tests -p 'test_*.py' -v
+        run: uv run --python 3.13 python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Build package
         run: uv build
       - name: Smoke-test packaged schema resources
@@ -34,7 +35,7 @@ jobs:
             exit "$smoke_status"
           }
           trap cleanup_smoke EXIT HUP INT TERM
-          uv venv --python python "$smoke_root/venv"
+          uv venv --python 3.13 "$smoke_root/venv"
           uv pip install --python "$smoke_root/venv/bin/python" --no-deps "$wheel"
           (cd / && "$smoke_root/venv/bin/python" -c 'from prompt_generator import SCHEMA_RESOURCE_FILES, schema_digest, schema_resource; assert set(SCHEMA_RESOURCE_FILES) == {"catalog", "identity-registry", "migration-report", "private-reference", "prompt", "review"}; assert all(schema_resource(kind).is_file() and schema_digest(kind).startswith("sha256:") for kind in SCHEMA_RESOURCE_FILES)')
           (cd / && "$smoke_root/venv/bin/prompt-generator" --help >/dev/null)
