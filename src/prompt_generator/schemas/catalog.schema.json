@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.jones.systems/prompt-generator/catalog-v1.json",
+  "title": "Prompt Generator catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "prompts"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "kind": {"type": "string", "const": "catalog"},
+    "catalog_id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9]*(?:[-_.][A-Za-z0-9]+)*$"},
+    "generator_version": {"type": "string", "minLength": 1},
+    "prompts": {"type": "array", "items": {"$ref": "prompt.schema.json"}, "uniqueItems": true},
+    "aliases": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^prj_[0-9a-f]{32}:[A-Za-z][A-Za-z0-9]*(?:[-_.][A-Za-z0-9]+)*$"}}
+  }
+}

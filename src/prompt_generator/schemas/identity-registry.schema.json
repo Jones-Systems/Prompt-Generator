@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.jones.systems/prompt-generator/identity-registry-v1.json",
+  "title": "Prompt Generator identity registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "projects"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "kind": {"type": "string", "const": "identity-registry"},
+    "projects": {"type": "array", "items": {"$ref": "#/$defs/project"}, "uniqueItems": true}
+  },
+  "$defs": {
+    "project": {"type": "object", "additionalProperties": false, "required": ["project_id", "title", "bindings"], "properties": {"project_id": {"type": "string", "pattern": "^prj_[0-9a-f]{32}$"}, "title": {"type": "string", "minLength": 1}, "bindings": {"type": "array", "items": {"$ref": "#/$defs/binding"}, "uniqueItems": true}}},
+    "binding": {"type": "object", "additionalProperties": false, "required": ["binding_id", "repository", "branch", "delivery"], "properties": {"binding_id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,127}$"}, "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"}, "root": {"type": "string", "minLength": 1}, "branch": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"}, "base": {"type": "string", "minLength": 1}, "head": {"type": "string", "minLength": 1}, "delivery": {"type": "string", "enum": ["task-branch", "draft-pr", "local"]}, "workspace": {"type": "string", "minLength": 1}}}
+  }
+}

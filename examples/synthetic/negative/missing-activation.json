@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "kind": "mode-request",
+  "mode": "level-2.v1",
+  "goal": "Invalid fixture with no activation proof",
+  "repository": {},
+  "app": {},
+  "instructions": {},
+  "scratch": {},
+  "recovery": {},
+  "dispatchable": false
+}

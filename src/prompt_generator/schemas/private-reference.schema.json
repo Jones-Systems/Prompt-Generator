@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.jones.systems/prompt-generator/private-reference-v1.json",
+  "title": "Public/private reference boundary",
+  "oneOf": [
+    {"$ref": "#/$defs/request"},
+    {"$ref": "#/$defs/result"},
+    {"$ref": "#/$defs/error"}
+  ],
+  "$defs": {
+    "reference": {"type": "string", "pattern": "^ref_[A-Za-z0-9][A-Za-z0-9_-]{7,127}$"},
+    "scope": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9]*(?:[-_.][A-Za-z0-9]+)*$"},
+    "request": {"type": "object", "additionalProperties": false, "required": ["schema_version", "kind", "reference", "purpose", "scopes"], "properties": {"schema_version": {"type": "integer", "const": 1}, "kind": {"type": "string", "const": "private-reference-request"}, "reference": {"$ref": "#/$defs/reference"}, "purpose": {"type": "string", "minLength": 1}, "scopes": {"type": "array", "items": {"$ref": "#/$defs/scope"}, "minItems": 1, "uniqueItems": true}}},
+    "result": {"type": "object", "additionalProperties": false, "required": ["schema_version", "kind", "status", "reference", "purpose", "scopes"], "properties": {"schema_version": {"type": "integer", "const": 1}, "kind": {"type": "string", "const": "private-reference-result"}, "status": {"type": "string", "enum": ["resolved", "denied"]}, "reference": {"$ref": "#/$defs/reference"}, "purpose": {"type": "string", "minLength": 1}, "scopes": {"type": "array", "items": {"$ref": "#/$defs/scope"}, "minItems": 1, "uniqueItems": true}, "schema": {"type": "string", "minLength": 1}, "payload_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}, "expires_at": {"type": "string", "format": "date-time"}}},
+    "error": {"type": "object", "additionalProperties": false, "required": ["schema_version", "kind", "code", "message", "retryable"], "properties": {"schema_version": {"type": "integer", "const": 1}, "kind": {"type": "string", "const": "private-reference-error"}, "code": {"type": "string", "enum": ["denied", "unknown-reference", "revoked", "scope-denied", "schema-mismatch", "expired", "internal"]}, "message": {"type": "string", "minLength": 1}, "reference": {"$ref": "#/$defs/reference"}, "retryable": {"type": "boolean"}}}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "kind": "coordination-example",
+  "mode": "stack",
+  "coordinator": "synthetic-coordinator",
+  "layers": [
+    {
+      "branch": "task/base",
+      "oid": "synthetic-parent-oid",
+      "layer": 1,
+      "path_prefix": "src/prompt_generator",
+      "checks": ["foundation"],
+      "cumulative_checks": ["foundation"]
+    },
+    {
+      "branch": "task/child",
+      "oid": "synthetic-child-oid",
+      "layer": 2,
+      "path_prefix": "src/prompt_generator/catalog",
+      "parent_branch": "task/base",
+      "parent_oid": "synthetic-parent-oid",
+      "parent_current_oid": "synthetic-parent-oid",
+      "checks": ["catalog"],
+      "cumulative_checks": ["foundation", "catalog"]
+    }
+  ],
+  "public": true,
+  "dispatchable": false
+}

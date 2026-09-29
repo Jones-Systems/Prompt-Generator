@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Jones-Systems/Prompt-Generator/schemas/migration-report.schema.json",
+  "title": "Prompt Generator migration report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "source_root", "destination_root", "dry_run", "source_preserved", "verified", "ok", "items", "collisions"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "kind": {"const": "migration-report"},
+    "source_root": {"type": "string", "minLength": 1},
+    "destination_root": {"type": "string", "minLength": 1},
+    "dry_run": {"type": "boolean"},
+    "source_preserved": {"type": "boolean"},
+    "verified": {"type": "boolean"},
+    "ok": {"type": "boolean"},
+    "items": {"type": "array", "items": {"$ref": "#/$defs/item"}},
+    "collisions": {"type": "array", "items": {"$ref": "#/$defs/item"}},
+    "provenance": {"$ref": "#/$defs/provenance"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "source_revision", "imported"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "source_revision": {"type": "string", "minLength": 1},
+        "imported": {"type": "boolean"},
+        "license": {"type": "string", "minLength": 1},
+        "ownership": {"type": "string", "minLength": 1},
+        "notes": {"type": "string", "minLength": 1}
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "target", "size", "source_digest", "action"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "target": {"type": "string", "minLength": 1},
+        "size": {"type": "integer", "minimum": 0},
+        "source_digest": {"$ref": "#/$defs/digest"},
+        "identity": {"type": "string", "minLength": 1},
+        "revision": {"type": "integer", "minimum": 1},
+        "action": {"enum": ["copy", "copied", "unchanged", "collision"]},
+        "collision": {"type": "string", "minLength": 1},
+        "error": {"type": "string", "minLength": 1},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    }
+  }
+}

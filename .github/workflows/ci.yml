@@ -1,0 +1,40 @@
+name: public-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out public tree
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d
+        with:
+          version: "0.12.5"
+      - name: Run serial unit and end-to-end checks
+        run: uv run python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Build package
+        run: uv build
+      - name: Smoke-test packaged schema resources
+        run: |
+          set -euo pipefail
+          wheel="$(find dist -maxdepth 1 -type f -name '*.whl' -print -quit)"
+          test -n "$wheel"
+          smoke_root="$(mktemp -d "${RUNNER_TEMP}/prompt-generator-wheel-smoke.XXXXXX")"
+          cleanup_smoke() {
+            local smoke_status=$?
+            trap - EXIT
+            rm -rf -- "$smoke_root"
+            exit "$smoke_status"
+          }
+          trap cleanup_smoke EXIT HUP INT TERM
+          uv venv --python python "$smoke_root/venv"
+          uv pip install --python "$smoke_root/venv/bin/python" --no-deps "$wheel"
+          (cd / && "$smoke_root/venv/bin/python" -c 'from prompt_generator import SCHEMA_RESOURCE_FILES, schema_digest, schema_resource; assert set(SCHEMA_RESOURCE_FILES) == {"catalog", "identity-registry", "migration-report", "private-reference", "prompt", "review"}; assert all(schema_resource(kind).is_file() and schema_digest(kind).startswith("sha256:") for kind in SCHEMA_RESOURCE_FILES)')
+          (cd / && "$smoke_root/venv/bin/prompt-generator" --help >/dev/null)

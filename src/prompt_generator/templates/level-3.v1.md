@@ -1,0 +1,7 @@
+@Web search
+
+<!-- mode-payload:begin -->
+```json
+{"activation":{"mode":"level-3.v1","requested":true,"source_revision":"synthetic-level-3-1"},"app":{"authority":"bound-workspace","callable":true,"discovered":true,"name":"ChatGPT Web Connector","research_app_name":"ChatGPT Web Connector — Research","slug":"chatgpt-web-connector"},"dispatchable":false,"kind":"mode-request","mode":"level-3.v1","project_request":{"base":"main","branch":"task/level-3-synthetic","connector_tools":["read","view_image","apply_patch","exec_command","write_stdin"],"delivery":"local-only","flow":"docs/handoffs/chatgpt-pro-project-flow.md","goal":"Exercise exact ProjectRequestV2 validation with a synthetic nondispatchable handle","initial_head":"synthetic-level-3-initial","mode":"implementation","publication_transport":"none","repository_id":"synthetic/prompt-generator","repository_root":"/synthetic/prompt-generator","schema":"codex-v3.chatgpt-project-request.v2","web_search":"required-before-first-message","workspace_handle":"ws-01.AAAAAAAAAAAAAAAAAAAAAA"},"recovery":{"attempt":"initial","checkpoint":"synthetic-level-3-recovery-checkpoint","effect":"known-no-effect","persistence":"bounded","status":"known-no-effect"},"resume":{"fresh":true,"kind":"initial","previous_workspace_handle_sha256":"0000000000000000000000000000000000000000000000000000000000000000","project_request_sha256":"d2048ec159cf7d7475c8912a5a5a0f079342d68603197cf1b95b70ff94b1bc08","workspace_handle":"ws-01.AAAAAAAAAAAAAAAAAAAAAA"},"schema_version":1}
+```
+<!-- mode-payload:end -->

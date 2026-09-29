@@ -1,0 +1,49 @@
+schema = "codex.v3-check-groups/v1"
+
+[groups.contracts-identity]
+summary = "Schema, project, prompt identity, lineage, aliases, and catalog behavior."
+covers = ["strict versioned contracts", "opaque project identity", "qualified prompt identity and lineage"]
+direct_surfaces = ["schemas/", "src/prompt_generator/contracts.py", "src/prompt_generator/identity.py", "src/prompt_generator/catalog.py"]
+tests = ["tests/test_contracts_identity.py"]
+
+[groups.generation-integrity]
+summary = "Deterministic rendering, integrity, safe paths, atomic publication, and recovery."
+covers = ["payload and whole-file integrity", "atomic snapshot publication", "path and symlink containment"]
+direct_surfaces = ["src/prompt_generator/generation.py", "src/prompt_generator/integrity.py", "src/prompt_generator/paths.py"]
+tests = ["tests/test_generation_integrity.py"]
+
+[groups.modes]
+summary = "Level 1, Level 2, and Level 3 contracts, templates, bindings, and examples."
+covers = ["explicit mode selection", "Level 2 GitHub plus Scratch", "Level 3 exact connector bindings"]
+direct_surfaces = ["src/prompt_generator/modes.py", "src/prompt_generator/templates/", "templates/", "examples/"]
+tests = ["tests/test_modes.py"]
+
+[groups.catalog-dispatch-review]
+summary = "Lookup, search, nondispatchable carriers, dispatch guards, and exact-revision review evidence."
+covers = ["canonical lookup and search", "duplicate dispatch prevention", "review invalidation"]
+direct_surfaces = ["src/prompt_generator/catalog.py", "src/prompt_generator/dispatch.py", "src/prompt_generator/reviews.py"]
+tests = ["tests/test_catalog_dispatch_review.py"]
+
+[groups.migration]
+summary = "Source-preserving dry-run import, deterministic migration, collision reports, and provenance."
+covers = ["inert imported data", "copy then verify", "reversible migration reporting"]
+direct_surfaces = ["src/prompt_generator/migration.py", "docs/migration.md"]
+tests = ["tests/test_migration.py"]
+
+[groups.coordination-stack]
+summary = "Coordination gates and sibling-versus-stack contract examples."
+covers = ["real dependency gates", "sibling branch default", "stack prefix invalidation"]
+direct_surfaces = ["src/prompt_generator/coordination.py", "examples/coordination/"]
+tests = ["tests/test_coordination.py"]
+
+[groups.package-cli]
+summary = "Installed library and CLI command surface."
+covers = ["package installation", "CLI parsing and exit behavior", "public-only runtime dependency boundary"]
+direct_surfaces = ["pyproject.toml", "src/prompt_generator/cli.py", "README.md"]
+tests = ["tests/test_cli_e2e.py"]
+
+[groups.publication-safety]
+summary = "Public/private isolation and publication candidate safety."
+covers = ["synthetic-only public fixtures", "no private dependency", "bounded privacy scanning"]
+direct_surfaces = ["AGENTS.md", ".github/workflows/", "docs/security.md", "tests/test_publication_safety.py"]
+tests = ["tests/test_public_private_boundary.py", "tests/test_publication_safety.py"]
