@@ -181,6 +181,48 @@ class CLIE2ETests(unittest.TestCase):
             self.assertEqual((source / "prompt.txt").read_bytes(), original)
             self.assertEqual((destination / "prompt.txt").read_bytes(), original)
 
+    def test_dry_run_plan_cannot_replace_or_modify_source(self) -> None:
+        cases = ("same", "normalized", "symlink", "ancestor-symlink", "hardlink", "within-source", "new-in-source")
+        for command in ("import", "migrate"):
+            for flags in ((), ("--dry-run",)):
+                for case in cases:
+                    with self.subTest(command=command, flags=flags, case=case):
+                        with tempfile.TemporaryDirectory() as directory:
+                            root = Path(directory)
+                            source_root = root / "source"
+                            source_root.mkdir()
+                            source = source_root / "prompt.txt"
+                            original = b"synthetic inert source bytes\n"
+                            source.write_bytes(original)
+                            plan = source
+                            import_source = source
+                            if case == "normalized":
+                                plan = source_root / ".." / "source" / "prompt.txt"
+                            elif case == "symlink":
+                                plan = root / "plan.json"
+                                plan.symlink_to(source)
+                            elif case == "ancestor-symlink":
+                                alias = root / "alias"
+                                alias.symlink_to(root, target_is_directory=True)
+                                plan = alias / "source" / "prompt.txt"
+                            elif case == "hardlink":
+                                plan = root / "plan.json"
+                                plan.hardlink_to(source)
+                            elif case in {"within-source", "new-in-source"}:
+                                import_source = source_root
+                                if case == "new-in-source":
+                                    plan = source_root / "new" / "plan.json"
+                            before = set(source_root.rglob("*"))
+                            destination = root / "destination"
+                            status, _, errors = self.invoke(
+                                command, str(import_source), str(destination), *flags, "--plan", str(plan),
+                            )
+                            self.assertEqual(source.read_bytes(), original)
+                            self.assertEqual(set(source_root.rglob("*")), before)
+                            self.assertFalse(destination.exists())
+                            self.assertNotEqual(status, 0)
+                            self.assertTrue(errors)
+
 
 if __name__ == "__main__":
     unittest.main()

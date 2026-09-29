@@ -598,6 +598,12 @@ def _run_migration(args: argparse.Namespace) -> int:
     selected_plan = plan
     plan_digest = sha256_digest(plan_bytes)
     if args.plan and args.dry_run:
+        plan_path = Path(args.plan)
+        source_path = Path(plan.source_root)
+        if plan_path.resolve().is_relative_to(source_path.resolve()):
+            raise CLIError("migration plan must be outside the source")
+        if plan_path.exists() and any(plan_path.samefile(item.source) for item in plan.items):
+            raise CLIError("migration plan must not alias a source file")
         _write_bytes(args.plan, plan_bytes)
     if args.apply:
         if args.plan:
