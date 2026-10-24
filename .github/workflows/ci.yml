@@ -2,10 +2,19 @@ name: public-ci
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 6 * * *"
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-caller-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   test:
@@ -21,8 +30,10 @@ jobs:
       - name: Run serial unit and end-to-end checks
         run: uv run --python 3.13 python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Build package
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
         run: uv build
       - name: Smoke-test packaged schema resources
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
         run: |
           set -euo pipefail
           wheel="$(find dist -maxdepth 1 -type f -name '*.whl' -print -quit)"
