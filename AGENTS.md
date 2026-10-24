@@ -8,3 +8,13 @@
 - Generation and migration must fail closed on unsafe paths, unsupported versions, malformed markers or fences, collisions, stale bindings, symlinks, and ambiguous effects.
 - Run affected tests, inspect the exact diff, obtain independent correctness and security/privacy review, and scan the reachable public history before publication.
 - Merge, release, deployment, visibility changes, force push, history rewrite, destructive cleanup, and live private-data handling require separate authority.
+
+## CI policy
+
+The `test` check in `public-ci` must pass before merge. Pull requests and main
+pushes run the complete Python 3.13 unit and end-to-end suite. Nightly and
+`workflow_dispatch` runs also build the package and smoke-test its schema
+resources. Those packaging steps are advisory: a failure requires a fix or
+tracking issue, but does not hold a merge. A test-suite failure on any event
+remains a required-check failure; nightly placement does not make tests
+advisory. These declarations do not change GitHub rulesets.
